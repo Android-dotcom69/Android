@@ -13,6 +13,22 @@ const TaskSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    projectId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Project",
+    },
+    assignee: {
+        type: String,
+        default: "",
+    },
+    dueDate: {
+        type: Date,
+    },
+    status: {
+        type: String,
+        enum: ["todo", "in-progress", "done"],
+        default: "todo",
+    },
     completed: {
         type: Boolean,
         default: false,

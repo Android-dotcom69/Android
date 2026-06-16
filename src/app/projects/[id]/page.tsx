@@ -5,6 +5,8 @@ import TaskCard from "@/components/TaskCard";
 import EditTaskModal from "@/components/EditTaskModal";
 import { useUser } from "@/context/UserContext";
 import { can, canMoveTask } from "@/lib/permissions";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 type Task = {
@@ -16,7 +18,14 @@ type Task = {
     assignee?: string;
     dueDate?: string;
     status: "todo" | "in-progress" | "done";
-    projectId?: string;
+    projectId: string;
+};
+
+type Project = {
+    _id: string;
+    name: string;
+    description: string;
+    createdBy: string;
 };
 
 const COLUMNS: { key: Task["status"]; label: string; headerColor: string }[] = [
@@ -37,22 +46,28 @@ const PREV_STATUS: Record<Task["status"], Task["status"] | null> = {
     "done":        "in-progress",
 };
 
-export default function Dashboard() {
+export default function ProjectBoard() {
+    const params = useParams<{ id: string }>();
+    const projectId = params.id;
     const { currentUser, members } = useUser();
+
+    const [project, setProject] = useState<Project | null>(null);
     const [tasks, setTasks] = useState<Task[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
     const [filterPriority, setFilterPriority] = useState("all");
     const [editingTask, setEditingTask] = useState<Task | null>(null);
 
-    async function fetchTasks() {
-        const response = await fetch("/api/tasks");
-        const data = await response.json();
-        setTasks(data);
-    }
-
     useEffect(() => {
-        fetchTasks();
-    }, []);
+        async function load() {
+            const [projRes, tasksRes] = await Promise.all([
+                fetch(`/api/projects/${projectId}`),
+                fetch(`/api/tasks?projectId=${projectId}`),
+            ]);
+            setProject(await projRes.json());
+            setTasks(await tasksRes.json());
+        }
+        load();
+    }, [projectId]);
 
     async function moveTask(id: string, newStatus: Task["status"]) {
         await fetch(`/api/tasks/${id}`, {
@@ -83,6 +98,31 @@ export default function Dashboard() {
     return (
         <>
             <Navbar />
+
+            {/* Project Header */}
+            <div className="flex flex-wrap items-center justify-between gap-3 mx-3 mt-4 mb-2">
+                <div className="flex items-center gap-3">
+                    <Link href="/projects">
+                        <button className="text-sm text-gray-400 hover:text-teal-300 font-medium">
+                            ← Projects
+                        </button>
+                    </Link>
+                    <span className="text-gray-600">/</span>
+                    <h1 className="text-2xl font-bold text-teal-200">
+                        {project?.name ?? "Loading..."}
+                    </h1>
+                </div>
+                {project?.description && (
+                    <p className="text-gray-400 text-sm hidden sm:block">{project.description}</p>
+                )}
+                {can(currentUser?.role, "task:create") && (
+                    <Link href={`/create-task?projectId=${projectId}`}>
+                        <button className="px-4 py-2 bg-teal-600 text-white text-sm font-bold rounded-xl hover:bg-teal-500">
+                            + Add Task
+                        </button>
+                    </Link>
+                )}
+            </div>
 
             {/* Search & Filter Bar */}
             <div className="flex flex-wrap items-center gap-3 m-3 p-3 bg-black rounded-xl border border-teal-700">
@@ -119,7 +159,8 @@ export default function Dashboard() {
             {/* Role notice for members */}
             {currentUser?.role === "member" && (
                 <p className="text-xs text-neutral-500 mx-3 mb-1">
-                    You can move tasks assigned to <span className="text-teal-400 font-semibold">{currentUser.name}</span>.
+                    You can move tasks assigned to{" "}
+                    <span className="text-teal-400 font-semibold">{currentUser.name}</span>.
                 </p>
             )}
 
