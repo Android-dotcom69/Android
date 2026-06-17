@@ -46,22 +46,34 @@ devChart gives Android Club a single place to manage every project, task, and me
 ## Screenshots
 
 ### Homepage
-![Homepage](screenshots/homepage.png)
+![Homepage](screenshots/1homepage.png)
 
 ### Kanban Board (Dashboard)
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](screenshots/2dashboard.png)
 
 ### Project Board
-![Project Board](screenshots/project-board.png)
+![Project Board](screenshots/3projects.png)
 
 ### Members Page
-![Members](screenshots/members.png)
-
-### Analytics
-![Analytics](screenshots/analytics.png)
+![Members](screenshots/4members.png)
 
 ### Announcements
-![Announcements](screenshots/announcements.png)
+![Announcements](screenshots/5announcements.png)
+
+### Analytics
+![Analytics](screenshots/6analytics.png)
+
+### Create Task
+![Create Task](screenshots/7createtask.png)
+
+### Member Stats
+![Member Stats](screenshots/8memberstats.png)
+
+### Member Access Denied
+![Access Denied](screenshots/9memberaccessdenied.png)
+
+### Email Config
+![Email Config](screenshots/10emailconfig.png)
 
 ---
 
