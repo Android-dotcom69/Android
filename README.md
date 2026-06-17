@@ -1,6 +1,6 @@
 # devChart — Android Club Collaboration Platform
 
-A club management platform with Kanban task boards, member management, project tracking, announcements, and workload analytics.
+A Club management platform with Kanban task boards, member management, project tracking, announcements, and workload analytics.
 
 ## Features
 
