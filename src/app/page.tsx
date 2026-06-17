@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import connectDB from "@/lib/mongodb";
 import Announcement from "@/models/Announcement";
 import Link from "next/link";
