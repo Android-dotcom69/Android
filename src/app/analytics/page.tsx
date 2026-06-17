@@ -110,7 +110,7 @@ export default function AnalyticsPage() {
                     <div className="mb-8">
                         <h1 className="text-2xl font-semibold text-slate-100">Analytics</h1>
                         <p className="text-slate-500 text-sm mt-1">
-                            Club-wide overview · {now.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
+                            Club overview · {now.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}
                         </p>
                     </div>
 
@@ -127,17 +127,18 @@ export default function AnalyticsPage() {
                     <div className="mb-10">
                         <h2 className="text-sm font-semibold text-slate-200 mb-4">Member Workload</h2>
                         <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
-                            <div className="grid grid-cols-6 text-xs font-semibold text-slate-500 uppercase tracking-wide px-5 py-3 border-b border-slate-800">
+                            <div className="grid grid-cols-7 text-xs font-semibold text-slate-500 uppercase tracking-wide px-5 py-3 border-b border-slate-800">
                                 <span className="col-span-2">Member</span>
                                 <span className="text-center">Total</span>
                                 <span className="text-center">To Do</span>
                                 <span className="text-center">In Progress</span>
                                 <span className="text-center">Done</span>
+                                <span className="text-center text-red-400/70">Overdue</span>
                             </div>
                             {memberStats.length === 0 ? (
                                 <p className="text-slate-500 text-sm p-5">No members found.</p>
                             ) : memberStats.map((m) => (
-                                <div key={m.name} className="grid grid-cols-6 items-center px-5 py-4 border-b border-slate-800 last:border-0 hover:bg-slate-800/40 transition-colors">
+                                <div key={m.name} className="grid grid-cols-7 items-center px-5 py-4 border-b border-slate-800 last:border-0 hover:bg-slate-800/40 transition-colors">
                                     <div className="col-span-2 flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-300 text-xs font-bold shrink-0">
                                             {m.name[0].toUpperCase()}
@@ -157,15 +158,19 @@ export default function AnalyticsPage() {
                                     <span className="text-center text-slate-400">{m.todo}</span>
                                     <span className="text-center text-blue-400">{m.inProgress}</span>
                                     <span className="text-center text-emerald-400">{m.done}</span>
+                                    <span className={`text-center font-semibold ${m.overdue > 0 ? "text-red-400" : "text-slate-700"}`}>
+                                        {m.overdue > 0 ? m.overdue : "—"}
+                                    </span>
                                 </div>
                             ))}
                             {unassigned > 0 && (
-                                <div className="grid grid-cols-6 items-center px-5 py-4 border-t border-slate-800 bg-slate-800/30">
+                                <div className="grid grid-cols-7 items-center px-5 py-4 border-t border-slate-800 bg-slate-800/30">
                                     <div className="col-span-2 flex items-center gap-3">
                                         <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-slate-400 text-xs font-bold shrink-0">?</div>
                                         <p className="text-slate-500 text-sm italic">Unassigned</p>
                                     </div>
                                     <span className="text-center text-slate-400 font-bold">{unassigned}</span>
+                                    <span className="text-center text-slate-700">—</span>
                                     <span className="text-center text-slate-700">—</span>
                                     <span className="text-center text-slate-700">—</span>
                                     <span className="text-center text-slate-700">—</span>

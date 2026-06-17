@@ -70,7 +70,7 @@ const NAV_CARDS = [
     {
         href: "/announcements",
         label: "Announcements",
-        desc: "Club-wide posts and updates",
+        desc: "Club posts and updates",
         iconBg: "bg-amber-500/15 border-amber-500/25",
         iconColor: "text-amber-400",
         hoverBorder: "hover:border-amber-500/50",
@@ -137,7 +137,7 @@ export default async function Home() {
             {/* ── Header ─────────────────────────────────────────────── */}
             <header className="flex items-center gap-3 px-8 py-6 w-full justify-center">
                 <NotepadLogo size={36} />
-                <span className="text-slate-100 font-bold text-xl tracking-tight">devChart</span>
+                <span className="text-slate-100 font-bold text-xl tracking-tight">DevChart</span>
             </header>
 
             {/* ── Hero ───────────────────────────────────────────────── */}
@@ -148,7 +148,7 @@ export default async function Home() {
                     <span className="text-indigo-400">Designed for impact.</span>
                 </h1>
                 <p className="text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed">
-                    One place for every project, every task, and every member — so your club actually moves forward.
+                    One place for every project, every task, and every member - so your club actually moves forward.
                 </p>
             </section>
 
