@@ -119,6 +119,9 @@ function UserBar() {
                     {currentUser?.role === "head" ? "Head" : "Mem"}
                 </span>
             </div>
+            <p className="text-[10px] text-slate-600 text-center mt-2 leading-relaxed px-1">
+                Role switcher simulates auth · Production would use JWT / NextAuth
+            </p>
         </div>
     );
 }
