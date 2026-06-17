@@ -148,7 +148,11 @@ Vercel auto-deploys on every push to `main`.
 
 ## Known Limitations
 
-- **No real authentication** — The role switcher in the sidebar simulates user identity by storing the selection in `localStorage`. In production this would be replaced by JWT-based auth or NextAuth.js with session management.
-- **No drag-and-drop** — Tasks are moved between Kanban columns using forward/back buttons rather than drag-and-drop.
-- **Email sender domain** — The free Resend tier requires a verified domain for production sending. The deployed version uses `onboarding@resend.dev` (Resend's sandbox sender), so emails only reach verified addresses.
-- **No real-time updates** — The board does not auto-refresh when another user makes a change. A page reload is needed to see updates from others.
+* **Kanban interactions** — Tasks are moved using action controls. Drag-and-drop support can be added in a future release.
+
+* **Email notifications** — The project uses Resend's sandbox sender for demonstration. A verified domain would enable production-ready email delivery.
+
+* **Authentication** — A lightweight role-based system is used to showcase permissions and workflows. Production deployments can integrate secure authentication.
+
+* **Real-time updates** — Changes are reflected on refresh. Future versions could support live synchronization across users.
+
